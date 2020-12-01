@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap");
+:root {
+  --block: 3rem;
+  --purple: #5061ff;
+  --violet: #b75cff;
+  --blue: #2f00ec;
+  --yellow: #ffce21;
+  --sandstone: #ffd363;
+  --limestone: #ffe99a;
+  --grey: #c6c6c626;
+  --temp-font: 'Raleway', sans-serif;
+  --advice-font: 'Heebo', sans-serif;
+  --tab-font: 'Gothic A1', sans-serif;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--purple);
+}
+
+body #main {
+  display: grid;
+  grid-template-areas: "weather-card" "advice" "tab-holder";
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+}
+
+body #main #weather-card {
+  background-color: var(--grey);
+  height: calc(var(--block)*7);
+  width: calc(var(--block)*7);
+  grid-area: weather-card;
+  position: relative;
+  transition: opacity .5s ease-out;
+  margin: calc(var(--block)*.25);
+}
+
+body #main #weather-card #weather {
+  opacity: 2;
+  width: calc(var(--block)*7);
+}
+
+body #main #weather-card #temp {
+  font-family: var(--temp-font);
+  position: absolute;
+  top: calc(var(--block)*1);
+  left: calc(var(--block)*2);
+  color: white;
+  font-size: calc(var(--block)*2);
+  cursor: default;
+}
+
+body #main #advice {
+  grid-area: advice;
+  font-family: var(--advice-font);
+  color: var(--limestone);
+  text-shadow: 5px 4px 6px rgba(0, 0, 0, 0.25);
+  font-size: calc(var(--block)*1);
+  line-height: calc(var(--block)*1);
+  left: 10%;
+  position: relative;
+  cursor: default;
+  transition: opacity .5s ease-out;
+}
+
+body #main #tab-holder {
+  grid-area: tab-holder;
+  transition: opacity .5s ease-out;
+}
+
+body #main .hourly {
+  position: absolute;
+  transition: opacity .5s ease-out;
+}
+
+body #main .daily {
+  position: absolute;
+  transition: opacity .5s ease-out;
+}
+
+body #main .journal {
+  position: absolute;
+  transition: opacity .5s ease-out;
+}
+
+#chart {
+  height: 400px;
+  width: 400px;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.tab {
+  background-color: var(--violet);
+  display: flex;
+  justify-content: center;
+  height: calc(var(--block)*1);
+  margin: calc(var(--block)*.3);
+  position: relative;
+  align-items: center;
+  width: calc(var(--block)*5);
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.19);
+  left: 30%;
+  cursor: pointer;
+  transition: background-color .2s ease-out;
+  padding-top: 5px;
+  font-family: var(--tab-font);
+  color: var(--blue);
+  font-size: calc(var(--block)*.6);
+  font-weight: 600;
+  text-shadow: 2px 2px 7px rgba(0, 0, 0, 0.28);
+}
+
+.tab:hover {
+  background-color: var(--yellow);
+}
+/*# sourceMappingURL=style.css.map */

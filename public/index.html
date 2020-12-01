@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Weather App</title>
+        <meta name="author" content="Michael Riccio">
+        <meta name="description" content="A weather app for your weather needs.">
+        <meta name="keywords" content="weather, temperature, percipitation, today, cloudy, cloud">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous" defer></script>
+        <script src="js/app.js" defer></script>
+    </head>
+    <body>
+        <main id="main">
+            <div id="weather-card" class="main-child">
+                <img id="weather" ></img>
+                <div id="temp"></div>
+            </div>
+            <div id="advice" class="main-child"></div>
+            <div id="tab-holder" class="main-child">
+                <div class="tab">hourly</div>
+                <div class="tab">daily</div>
+                <div class="tab">journal</div>
+            </div>
+            <div class="hidden hourly">
+                <h1>TO BE FINISHED LATER</h1>
+                <div class="tab">hourly</div>
+                <canvas id="myChartHourlyTemp"></canvas>
+                <canvas id="myChartHourlyPerc"></canvas>
+            </div>
+            <div class="hidden daily">
+                <h1>TO BE FINISHED LATER</h1>
+                <div class="tab">daily</div>
+                <canvas id="myChartDailyTemp"></canvas>
+                <canvas id="myChartDailyPerc"></canvas>
+            </div>
+            <div class="hidden journal">
+                <div class="tab">journal</div>               
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Forcast</th>
+                            <th>Percipitation</th>
+                            <th>Temperature</th>
+                        </tr>
+                    </thead>
+                    <tbody class="pastLog">
+                        
+                    </tbody>
+                </table>
+            </div>
+    </main>
+</body>
+</html>
