@@ -114,26 +114,26 @@ let weatherIcon = (data1) => {
     let advice = document.getElementById("advice");
 if (data1.current.weather[0].main == 'Clouds'){
     if (data1.current.weather[0].description == 'few clouds' || data1.current.weather[0].description == 'scattered clouds'){
-        icon.src = "/pics/cloudy.svg";
+        icon.src = "../pics/cloudy.svg";
         advice.textContent = "No need for Shades";
     }else{
-        icon.src = "/pics/overcast.svg";
+        icon.src = "../pics/overcast.svg";
         advice.textContent = "It's a bit Dreary";
     }
 }else if (data1.current.weather[0].main == 'Clear'){
-    icon.src = "/pics/sunny.svg";
+    icon.src = "../pics/sunny.svg";
     advice.textContent = "Bring some Shades";
 }else if (data1.current.weather[0].main == 'Snow'){
-    icon.src = "/pics/snowing.svg";
+    icon.src = "../pics/snowing.svg";
     advice.textContent = "Wear a Coat";
 }else if (data1.current.weather[0].main == 'Thunderstorm'){
-    icon.src = "/pics/storming.svg";
+    icon.src = "../pics/storming.svg";
     advice.textContent = "Stay Inside Today";
 }else if (data1.current.weather[0].main == 'Drizzle' || data1.current.weather[0].main == 'Rain') {
-    icon.src = "/pics/raining.svg";
+    icon.src = "../pics/raining.svg";
     advice.textContent = "Bring an Umbrella";
 } else {
-    icon.src = "/pics/foggy.svg";
+    icon.src = "../pics/foggy.svg";
     advice.textContent = "Visibility Low Be Careful";
 }}
 
