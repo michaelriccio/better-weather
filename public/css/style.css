@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap");
-:root {
+html {
   --block: 3rem;
   --purple: #5061ff;
   --violet: #b75cff;
@@ -13,7 +13,8 @@
   --temp-font: 'Raleway', sans-serif;
   --advice-font: 'Heebo', sans-serif;
   --tab-font: 'Gothic A1', sans-serif;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   scroll-behavior: smooth;
 }
 
@@ -22,9 +23,11 @@ body {
 }
 
 body #main {
+  display: -ms-grid;
   display: grid;
-  grid-template-areas: "weather-card" "advice" "tab-holder";
-  grid-template-columns: repeat(1, 1fr);
+      grid-template-areas: "weather-card" "advice" "tab-holder";
+  -ms-grid-columns: (1fr)[1];
+      grid-template-columns: repeat(1, 1fr);
   gap: 1rem;
 }
 
@@ -32,8 +35,11 @@ body #main #weather-card {
   background-color: var(--grey);
   height: calc(var(--block)*7);
   width: calc(var(--block)*7);
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
   grid-area: weather-card;
   position: relative;
+  -webkit-transition: opacity .5s ease-out;
   transition: opacity .5s ease-out;
   margin: calc(var(--block)*.25);
 }
@@ -54,36 +60,57 @@ body #main #weather-card #temp {
 }
 
 body #main #advice {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
   grid-area: advice;
   font-family: var(--advice-font);
   color: var(--limestone);
   text-shadow: 5px 4px 6px rgba(0, 0, 0, 0.25);
   font-size: calc(var(--block)*1);
   line-height: calc(var(--block)*1);
-  left: 10%;
+  padding-left: 10%;
   position: relative;
   cursor: default;
+  -webkit-transition: opacity .5s ease-out;
   transition: opacity .5s ease-out;
 }
 
 body #main #tab-holder {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
   grid-area: tab-holder;
+  -webkit-transition: opacity .5s ease-out;
   transition: opacity .5s ease-out;
 }
 
 body #main .hourly {
   position: absolute;
+  -webkit-transition: opacity .5s ease-out;
   transition: opacity .5s ease-out;
 }
 
 body #main .daily {
   position: absolute;
+  -webkit-transition: opacity .5s ease-out;
   transition: opacity .5s ease-out;
 }
 
 body #main .journal {
   position: absolute;
+  -webkit-transition: opacity .5s ease-out;
   transition: opacity .5s ease-out;
+}
+
+body #main .journal .pastLog > * {
+  background-color: red;
+}
+
+.row-here {
+  background: var(--limestone);
+  border: solid 3px var(--blue);
+  color: var(--violet);
+  text-align: center;
+  vertical-align: center;
 }
 
 #chart {
@@ -97,16 +124,24 @@ body #main .journal {
 
 .tab {
   background-color: var(--violet);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   height: calc(var(--block)*1);
   margin: calc(var(--block)*.3);
   position: relative;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: calc(var(--block)*5);
-  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.19);
+  -webkit-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.19);
+          box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.19);
   left: 30%;
   cursor: pointer;
+  -webkit-transition: background-color .2s ease-out;
   transition: background-color .2s ease-out;
   padding-top: 5px;
   font-family: var(--tab-font);

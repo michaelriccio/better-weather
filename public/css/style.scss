@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;700&display=swap');//Gothic
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap');//Heebo
 
-:root{
+html{
     // Custom Properites
     --block: 3rem;
     --purple: #5061ff;
@@ -59,7 +59,7 @@ body{
             text-shadow: 5px 4px 6px rgba(0, 0, 0, 0.25);
             font-size:  calc(var(--block)*1);
             line-height:  calc(var(--block)*1);
-            left: 10%;
+            padding-left: 10%;
             position: relative;
             cursor: default;
             transition: opacity .5s ease-out;

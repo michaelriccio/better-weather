@@ -14,13 +14,11 @@ function charting(ctx, data, lab, x) {
 };
 
 // Global Variables
-const key = "5f6df12f283bc1a30cd52357ca119ed4";
+const key = '5f6df12f283bc1a30cd52357ca119ed4';
 const ctxHourlyTemp = document.getElementById('myChartHourlyTemp');
 const ctxHourlyPerc = document.getElementById('myChartHourlyPerc');
 const ctxDailyTemp = document.getElementById('myChartDailyTemp');
 const ctxDailyPerc = document.getElementById('myChartDailyPerc');
-// const optionsHour = ;
-// const optionsDaily = ;
 let data1;
 let hourlyTemp = [];
 let hourlyPerc = [];
@@ -39,8 +37,7 @@ function weatherGetter(){
             let long = position.coords.longitude;
 
             // Personal API Key for OpenWeatherMap API
-            let weatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude={minutely}&appid=${key}`;
-
+            let weatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts&units=imperial&appid=${key}`;
             let [day, month, date, year, time] = (Date()).split(" ");
             let [hour, minute, second] = (time).split(":");
             let date1 = `${month} ${date} ${year}`;
@@ -52,16 +49,11 @@ function weatherGetter(){
                 console.error(error);
             });
 
-            getJournal('/all')
-            .catch(error => {
-                console.log('promise error');
-                console.error(error);
-            });
+            
+            //Creating Charts AFTER data has been created
             let d = new Date();
             let w = d.getDay();
             let h = d.getHours();
-
-            //Creating Charts AFTER data has been created
             charting(ctxHourlyTemp, hourlyTemp, "TEMPERATURE", hourArray(h));
             charting(ctxHourlyPerc, hourlyPerc, "PERCIPITATION", hourArray(h));
             charting(ctxDailyTemp, dailyTemp, "TEMPERATURE", dayArray(w));
@@ -72,80 +64,43 @@ function weatherGetter(){
     }
 };
 
-// Event listener to add function to existing HTML DOM element
-
 /* Function to GET Web API Data*/
 async function getWeather(date, time, weatherUrl) {
     const responseWeather = await fetch(weatherUrl);
     data1 = await responseWeather.json();
     let dailyForcast = data1.current.weather[0].description;
     let percipitation = `${Math.round(data1.hourly[0].pop*100)}%`;
-    let temperature = convertF(data1.current.temp);
-    let postInfo = [date, time, dailyForcast, percipitation, temperature];
-    postJournal('/post', postInfo);
+    let temperature = Math.round(data1.current.temp);
+    let temperatureF = `${temperature}°F`;
     weatherIcon(data1);
-    tempIcon(temperature);
+    document.getElementById("temp").textContent = temperatureF;
     chartData(data1);
 };
 
-/* Function to POST Project Data */
-async function postJournal(url='', data={}) {
-    const optionPost = {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-    };
-    const response = await fetch(url, optionPost); 
-    const journalPost = await response.json(); 
-    console.log(journalPost);
-};
-
-/* Function to GET Project Data */
-async function getJournal(url){
-    const response = await fetch(url);
-    const journal = await response.json();
-    console.log({journal});
-    makeTable(journal);
-};
-
     // Making the picture match the weather object
+let appendIcon = (pic, phrase) => { 
+    document.getElementById("weather").src = pic;
+    document.getElementById("advice").textContent = phrase;
+};
+
 let weatherIcon = (data1) => {
-    let icon = document.getElementById("weather");
-    let advice = document.getElementById("advice");
 if (data1.current.weather[0].main == 'Clouds'){
     if (data1.current.weather[0].description == 'few clouds' || data1.current.weather[0].description == 'scattered clouds'){
-        icon.src = "/pics/cloudy.svg";
-        advice.textContent = "No need for Shades";
+        appendIcon("./pics/cloudy.svg", "No need for Shades")
     }else{
-        icon.src = "/pics/overcast.svg";
-        advice.textContent = "It's a bit Dreary";
+        appendIcon("./pics/overcast.svg", "It's a bit Dreary")
     }
 }else if (data1.current.weather[0].main == 'Clear'){
-    icon.src = "/pics/sunny.svg";
-    advice.textContent = "Bring some Shades";
+    appendIcon("./pics/sunny.svg", "Bring some Shades")
 }else if (data1.current.weather[0].main == 'Snow'){
-    icon.src = "/pics/snowing.svg";
-    advice.textContent = "Wear a Coat";
+    appendIcon("./pics/snowing.svg", "Wear a Coat")
 }else if (data1.current.weather[0].main == 'Thunderstorm'){
-    icon.src = "/pics/storming.svg";
-    advice.textContent = "Stay Inside Today";
+    appendIcon("./pics/storming.svg", "Stay Inside Today")
 }else if (data1.current.weather[0].main == 'Drizzle' || data1.current.weather[0].main == 'Rain') {
-    icon.src = "/pics/raining.svg";
-    advice.textContent = "Bring an Umbrella";
+    appendIcon("./pics/raining.svg", "Bring an Umbrella")
 } else {
-    icon.src = "/pics/foggy.svg";
-    advice.textContent = "Visibility Low Be Careful";
+    appendIcon("./index/pics/foggy.svg", "Visibility Low Be Careful")
 }}
-
-// Creating temperature on top of icon
-tempIcon = (temp) => {
-    tempPlacement = document.getElementById("temp");
-    tempPlacement.textContent = temp;
-}
-
-//Getting Fahrenheit from Kelvin
-const convertF = (rawTemp) => {return `${Math.round(((rawTemp-273.15)*1.8)+32)}°F`;};
-const convertTemp = (rawTemp) => {return Math.round(((rawTemp-273.15)*1.8)+32)};
 
 // Making day array
 const dayArray = (currentDay) => {
@@ -208,26 +163,3 @@ document.addEventListener('click', function(ev){
         };
     }
 });
-
-// Making table and appending
-function makeTable(dataList) {
-    let pastLog = document.querySelector('.pastLog');
-    if(dataList.length == 0) {
-        let noContent = document.createElement('h1');
-        noContent.textContent = 'There are no previous entries, try refreshing your page.';
-        let journalClass = document.querySelector('.journal');
-        console.log(journalClass);
-        journalClass.appendChild(noContent);
-    }else {
-        for (let i=0; i < dataList.length; i++) {
-            let makeRow = document.createElement('tr');
-            pastLog.appendChild(makeRow);
-            for (let h=0; h < 5; h++) {
-                let makeColumn = document.createElement('td');
-                makeColumn.textContent = dataList[i][h];
-                makeColumn.setAttribute('class', 'row-here');
-                pastLog.children[i].appendChild(makeColumn);
-            }
-        }
-    }
-}
