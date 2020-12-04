@@ -128,12 +128,12 @@ const hourArray = (currentHour) => {
 
 // Getting chart data
 chartData = (data) => {
-    data.daily.forEach((item, index) => {
-        dailyTemp.push(convertTemp(item.temp.day));
+    data.daily.forEach((item) => {
+        dailyTemp.push(item.temp.day);
         dailyPerc.push(item.pop*100);
     });
     data.hourly.forEach((item, index) => {
-        hourlyTemp.push((convertTemp(item.temp)));
+        hourlyTemp.push(item.temp);
         hourlyPerc.push(item.pop*100);
     })
 };
