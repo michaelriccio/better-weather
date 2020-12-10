@@ -193,7 +193,7 @@ const fadeIn = (endHere) => {
 // appends loader after user agrees to submit geolocation
 let appendLoader = () => {
     let loading = document.createElement('img');
-    loading.src = '/public/pics/loading.svg';
+    loading.src = './public/pics/loading.svg';
     loading.classList.add('loader');
     main.append(loading);
 }
