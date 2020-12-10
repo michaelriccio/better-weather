@@ -13,8 +13,7 @@ html {
   --temp-font: 'Raleway', sans-serif;
   --advice-font: 'Heebo', sans-serif;
   --tab-font: 'Gothic A1', sans-serif;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   scroll-behavior: smooth;
 }
 
@@ -22,34 +21,28 @@ body {
   background-color: var(--purple);
 }
 
-body #main {
-  display: -ms-grid;
+body main {
   display: grid;
-      grid-template-areas: "weather-card" "advice" "tab-holder";
-  -ms-grid-columns: (1fr)[1];
-      grid-template-columns: repeat(1, 1fr);
+  grid-template-areas: "weather-card" "advice" "tab-holder";
+  grid-template-columns: repeat(1, 1fr);
   gap: 1rem;
 }
 
-body #main #weather-card {
+body main #weather-card {
   background-color: var(--grey);
   height: calc(var(--block)*7);
   width: calc(var(--block)*7);
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
   grid-area: weather-card;
   position: relative;
-  -webkit-transition: opacity .5s ease-out;
-  transition: opacity .5s ease-out;
+  transition: opacity .3s ease-out;
   margin: calc(var(--block)*.25);
 }
 
-body #main #weather-card #weather {
-  opacity: 2;
+body main #weather-card #weather {
   width: calc(var(--block)*7);
 }
 
-body #main #weather-card #temp {
+body main #weather-card #temp {
   font-family: var(--temp-font);
   position: absolute;
   top: calc(var(--block)*1);
@@ -59,9 +52,7 @@ body #main #weather-card #temp {
   cursor: default;
 }
 
-body #main #advice {
-  -ms-grid-row: 2;
-  -ms-grid-column: 1;
+body main #advice {
   grid-area: advice;
   font-family: var(--advice-font);
   color: var(--limestone);
@@ -71,46 +62,37 @@ body #main #advice {
   padding-left: 10%;
   position: relative;
   cursor: default;
-  -webkit-transition: opacity .5s ease-out;
-  transition: opacity .5s ease-out;
+  transition: opacity .3s ease-out;
 }
 
-body #main #tab-holder {
-  -ms-grid-row: 3;
-  -ms-grid-column: 1;
+body main #tab-holder {
   grid-area: tab-holder;
-  -webkit-transition: opacity .5s ease-out;
-  transition: opacity .5s ease-out;
+  transition: opacity .3s ease-out;
 }
 
-body #main .hourly {
+body main .home {
+  display: none;
+  opacity: 0;
+}
+
+body main .hourly {
   position: absolute;
-  -webkit-transition: opacity .5s ease-out;
-  transition: opacity .5s ease-out;
+  transition: opacity .3s ease-out;
+  display: none;
 }
 
-body #main .daily {
+body main .daily {
   position: absolute;
-  -webkit-transition: opacity .5s ease-out;
-  transition: opacity .5s ease-out;
+  transition: opacity .3s ease-out;
+  display: none;
 }
 
-body #main .journal {
+body main .loader {
+  justify-self: center;
   position: absolute;
-  -webkit-transition: opacity .5s ease-out;
-  transition: opacity .5s ease-out;
-}
-
-body #main .journal .pastLog > * {
-  background-color: red;
-}
-
-.row-here {
-  background: var(--limestone);
-  border: solid 3px var(--blue);
-  color: var(--violet);
-  text-align: center;
-  vertical-align: center;
+  top: 50vh;
+  transform: translateY(-50%);
+  align-self: center;
 }
 
 #chart {
@@ -118,30 +100,18 @@ body #main .journal .pastLog > * {
   width: 400px;
 }
 
-.hidden {
-  opacity: 0;
-}
-
 .tab {
   background-color: var(--violet);
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   height: calc(var(--block)*1);
   margin: calc(var(--block)*.3);
   position: relative;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   width: calc(var(--block)*5);
-  -webkit-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.19);
-          box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.19);
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.19);
   left: 30%;
   cursor: pointer;
-  -webkit-transition: background-color .2s ease-out;
   transition: background-color .2s ease-out;
   padding-top: 5px;
   font-family: var(--tab-font);

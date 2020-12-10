@@ -22,7 +22,7 @@ html{
 
 body{
     background-color: var(--purple);
-    #main{
+    main{
         display: grid;
         grid-template-areas: 
         "weather-card"
@@ -36,10 +36,9 @@ body{
             width: calc(var(--block)*7);
             grid-area: weather-card;
             position: relative;
-            transition: opacity .5s ease-out;
+            transition: opacity .3s ease-out;
             margin:  calc(var(--block)*.25);
             #weather{
-                opacity: 2;
                 width: calc(var(--block)*7);
             }
             #temp{
@@ -62,46 +61,39 @@ body{
             padding-left: 10%;
             position: relative;
             cursor: default;
-            transition: opacity .5s ease-out;
+            transition: opacity .3s ease-out;
         }
         #tab-holder{
             grid-area: tab-holder;
-            transition: opacity .5s ease-out;
+            transition: opacity .3s ease-out;
+        }
+        .home{
+            display: none;
+            opacity: 0;
         }
         .hourly{
             position: absolute;
-            transition: opacity .5s ease-out;
+            transition: opacity .3s ease-out;
+            display: none;
         }
         .daily{
             position: absolute;
-            transition: opacity .5s ease-out;
+            transition: opacity .3s ease-out;
+            display: none;
         }
-        .journal{
+        .loader {
+            justify-self: center;
             position: absolute;
-            transition: opacity .5s ease-out;
-            .pastLog{
-                >*{
-                    background-color:red;
-                }
-            }
+            top: 50vh;
+            transform: translateY(-50%);
+            align-self: center;
         }
     }
-}
-.row-here{
-    background: var(--limestone);
-    border: solid 3px var(--blue);
-    color: var(--violet);
-    text-align:center;
-    vertical-align: center;
 }
 
 #chart{
     height: 400px;
     width: 400px;
-}
-
-.hidden{
-    opacity: 0;
 }
 
 .tab{
