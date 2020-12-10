@@ -95,11 +95,6 @@ body main .loader {
   align-self: center;
 }
 
-#chart {
-  height: 400px;
-  width: 400px;
-}
-
 .tab {
   background-color: var(--violet);
   display: flex;

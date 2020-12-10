@@ -1,24 +1,46 @@
 // Chart.js
-function charting(ctx, data, lab, x) {
-    const myLineChart = new Chart(ctx, {
+function charting(ctx, data, label, x) {
+    var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            label: x,
+            labels: x,
             datasets: [{
-                label: lab,
+                label: label,
                 data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1
             }]
         },
-        options: {}
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
     });
 };
 
+let resizeChart = () => {
+    let chart = document.querySelectorAll('.chart'); 
+    Array.from(chart).forEach((item) => {
+        item.style.height = '30vh';
+        item.style.width = '70vw';
+    });
+}
+
+
 // Global Variables
 const key = '5f6df12f283bc1a30cd52357ca119ed4';
-const ctxHourlyTemp = document.getElementById('myChartHourlyTemp');
-const ctxHourlyPerc = document.getElementById('myChartHourlyPerc');
-const ctxDailyTemp = document.getElementById('myChartDailyTemp');
-const ctxDailyPerc = document.getElementById('myChartDailyPerc');
+
+
 let hourlyTemp = [];
 let hourlyPerc = [];
 let dailyTemp = [];
@@ -47,12 +69,18 @@ if('geolocation' in navigator) {
         
         //Creating Charts AFTER data has been created
         let h = new Date().getHours();
+        const ctxHourlyTemp = document.getElementById('myChartHourlyTemp');
+        const ctxHourlyPerc = document.getElementById('myChartHourlyPerc');
         charting(ctxHourlyTemp, hourlyTemp, "TEMPERATURE", hourArray(h));
         charting(ctxHourlyPerc, hourlyPerc, "PERCIPITATION", hourArray(h));
 
         let w = new Date().getDay();
+        const ctxDailyTemp = document.getElementById('myChartDailyTemp');
+        const ctxDailyPerc = document.getElementById('myChartDailyPerc');
         charting(ctxDailyTemp, dailyTemp, "TEMPERATURE", dayArray(w));
         charting(ctxDailyPerc, dailyPerc, "PERCIPITATION", dayArray(w));
+
+        resizeChart();
     })
 } else {
     console.log('geolocation is not avaliable');
@@ -61,12 +89,13 @@ if('geolocation' in navigator) {
 /* Function to GET Web API Data*/
 async function getWeather(weatherUrl) {
     const responseWeather = await fetch(weatherUrl);
-    let data1 = await responseWeather.json();
-    let temperature = Math.round(data1.current.temp);
+    let weatherData = await responseWeather.json();
+    let temperature = Math.round(weatherData.current.temp);
     let temperatureF = `${temperature}°F`;
-    weatherIcon(data1);
     document.getElementById("temp").textContent = temperatureF;
-    chartData(data1);
+    console.log(weatherData);
+    weatherIcon(weatherData);
+    chartData(weatherData);
     removeLoader();
     home.forEach((item) => {
         fadeIn(item);
@@ -101,37 +130,37 @@ if (weatherObject.current.weather[0].main == 'Clouds'){
 // Making day array
 const dayArray = (currentDay) => {
     let week = ['Sun','Mon','Tues','Wed','Thurs','Fri','Sat'];
-    let weekObject = [];
+    let weekList = [];
     let rawDay = currentDay;
     for(let i = 0; i <= 7; i++) {
-        weekObject.push(week[rawDay%7]);
+        weekList.push(week[rawDay%7]);
         rawDay++;
     }
-    return weekObject;
+    return weekList;
 }
 
 // Making hour array
 const hourArray = (currentHour) => {
     let hours = ['12am','1am','2am','3am','4am','5am','6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm','9pm','10pm','11pm'];
-    let hourObject = [];
+    let hourList = [];
     let rawHour = currentHour;
     for(let i = 0; i <= 48; i++) {
-        hourObject.push(hours[rawHour%24]);
+        hourList.push(hours[rawHour%24]);
         rawHour++;
     }
-    return hourObject;
+    return hourList;
 }
 
 // Getting chart data
 chartData = (data) => {
-    data.daily.forEach((item) => {
-        dailyTemp.push(item.temp.day);
-        dailyPerc.push(item.pop*100);
-    });
     data.hourly.forEach((item) => {
         hourlyTemp.push(item.temp);
         hourlyPerc.push(item.pop*100);
     })
+    data.daily.forEach((item) => {
+        dailyTemp.push(item.temp.day);
+        dailyPerc.push(item.pop*100);
+    });
 };
 
 // checks if tab => compares tab text to class names => fades in/out
