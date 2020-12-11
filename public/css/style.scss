@@ -81,16 +81,16 @@ body{
             transition: opacity .3s ease-out;
             display: none;
         }
-        .loader {
-            justify-self: center;
-            position: absolute;
-            top: 50vh;
-            transform: translateY(-50%);
-            align-self: center;
-        }
     }
 }
 
+.loader {
+    justify-self: center;
+    position: absolute;
+    top: 50vh;
+    transform: translateY(-50%);
+    align-self: center;
+}
 .tab{
     background-color: var(--violet);
     display: flex;
