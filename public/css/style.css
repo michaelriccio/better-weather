@@ -87,7 +87,7 @@ body main .daily {
   display: none;
 }
 
-.loader {
+body main .loader {
   justify-self: center;
   position: absolute;
   top: 50vh;
