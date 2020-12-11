@@ -92,7 +92,8 @@ body main .loader {
   position: absolute;
   top: 50vh;
   transform: translateY(-50%);
-  align-self: center;
+  left: 50vw;
+  transform: translateX(-50%);
 }
 
 .tab {
