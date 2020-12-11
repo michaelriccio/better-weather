@@ -82,12 +82,10 @@ body{
             display: none;
         }
         .loader {
-            justify-self: center;
             position: absolute;
             top: 50vh;
-            transform: translateY(-50%);
             left: 50vw;
-            transform: translateX(-50%);
+            transform: translateY(-50%) translateX(-50%);
         }
     }
 }
