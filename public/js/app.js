@@ -8,15 +8,24 @@ function charting(ctx, data, label, x) {
                 label: label,
                 data: data,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 99, 132, 0.3)',
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
                 ],
-                borderWidth: 1
+                borderWidth: 1,
+                pointRadius: 0
             }]
         },
         options: {
+            legend: {
+                labels: {
+                    fontColor: '#ffce21',
+                    defaultFontSize: 64,
+                    defaultFontFamily: "'Helvetica', sans-serif",
+                    defaultFontStyle: "bold"
+                }
+            },
             scales: {
                 yAxes: [{
                     ticks: {
@@ -84,6 +93,7 @@ if('geolocation' in navigator) {
     })
 } else {
     console.log('geolocation is not avaliable');
+    alert('Please turn your location on and reload.')
 }
 
 /* Function to GET Web API Data*/
