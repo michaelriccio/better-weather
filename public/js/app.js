@@ -1,21 +1,37 @@
 // Chart.js
-function charting(ctx, data, label, x) {
+function charting(ctx, temp, perc, x) {
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: x,
-            datasets: [{
-                label: label,
-                data: data,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.3)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                ],
-                borderWidth: 1,
-                pointRadius: 0
-            }]
+            datasets: [
+                {
+                    label: 'Temperature °F',
+                    yAxisID: 'Temp',
+                    data: temp,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.3)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Percipitation %',
+                    yAxisID: 'Perc',
+                    data: perc,
+                    backgroundColor: [
+                        'rgb(255, 206, 31, 0.3)',
+                    ],
+                    borderColor: [
+                        'rgb(255, 206, 31)',
+                    ],
+                    borderWidth: 1,
+                    pointRadius: 0
+                }
+            ]
         },
         options: {
             legend: {
@@ -27,15 +43,30 @@ function charting(ctx, data, label, x) {
                 }
             },
             scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
+                yAxes: [
+                    {
+                        id: 'Temp',
+                        type: 'linear',
+                        position: 'left',
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    },
+                    {
+                        id: 'Perc',
+                        type: 'linear',
+                        position: 'right',
+                        ticks: {
+                            beginAtZero: true
+                        }
                     }
-                }]
+                ]
             }
         }
     });
 };
+
+
 
 let resizeChart = () => {
     let chart = document.querySelectorAll('.chart'); 
@@ -78,16 +109,12 @@ if('geolocation' in navigator) {
         
         //Creating Charts AFTER data has been created
         let h = new Date().getHours();
-        const ctxHourlyTemp = document.getElementById('myChartHourlyTemp');
-        const ctxHourlyPerc = document.getElementById('myChartHourlyPerc');
-        charting(ctxHourlyTemp, hourlyTemp, "TEMPERATURE", hourArray(h));
-        charting(ctxHourlyPerc, hourlyPerc, "PERCIPITATION", hourArray(h));
+        const ctxHourly = document.getElementById('myChartHourly');
+        charting(ctxHourly, hourlyTemp, hourlyPerc, hourArray(h));
 
         let w = new Date().getDay();
-        const ctxDailyTemp = document.getElementById('myChartDailyTemp');
-        const ctxDailyPerc = document.getElementById('myChartDailyPerc');
-        charting(ctxDailyTemp, dailyTemp, "TEMPERATURE", dayArray(w));
-        charting(ctxDailyPerc, dailyPerc, "PERCIPITATION", dayArray(w));
+        const ctxDaily = document.getElementById('myChartDaily');
+        charting(ctxDaily, dailyTemp, dailyPerc, dayArray(w));
 
         resizeChart();
     })
@@ -165,7 +192,8 @@ const hourArray = (currentHour) => {
 chartData = (data) => {
     data.hourly.forEach((item) => {
         hourlyTemp.push(item.temp);
-        hourlyPerc.push(item.pop*100);
+        hourlyPerc.push(item.pop * 100);
+            console.log('here');
     })
     data.daily.forEach((item) => {
         dailyTemp.push(item.temp.day);
